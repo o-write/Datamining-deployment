@@ -4,10 +4,10 @@ import numpy as np
 import pandas as pd
 
 # 1. LOAD MODEL DAN SCALER (.pkl)
-with open('LR_model.pkl', 'rb') as file:
+with open('lr_model.pkl', 'rb') as file:
     LR_model = pickle.load(file)
 
-with open('LR_scaler.pkl', 'rb') as file:
+with open('lr_scaler.pkl', 'rb') as file:
     LR_scaler = pickle.load(file)
 
 with open('nb_model_smote.pkl', 'rb') as file:
