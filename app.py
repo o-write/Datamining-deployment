@@ -28,27 +28,29 @@ halaman = st.sidebar.radio(
 # 3. KONDISIONAL HALAMAN
 if halaman == "Prediksi Glucose (Linear Regression)":
     st.title("📈 Prediksi Kadar Glucose Pasien")
-    st.write("Masukkan data pasien untuk memprediksi kadar Glucose.")
-    age = st.number_input("Age", min_value=0)
-    preg = st.number_input("Pregnancies", min_value=0)
-    bmi = st.number_input("BMI", min_value=0.0)
-    bp = st.number_input("BloodPressure", min_value=0)
+    age   = st.number_input("Age", min_value=0)
+    preg  = st.number_input("Pregnancies", min_value=0)
+    bmi   = st.number_input("BMI", min_value=0.0)
+    gluc  = st.number_input("Glucose", min_value=0.0)  # ✅ tambahin ini
+    bp    = st.number_input("BloodPressure", min_value=0)
     hba1c = st.number_input("HbA1c", min_value=0.0)
-    ldl = st.number_input("LDL", min_value=0.0)
-    hdl = st.number_input("HDL", min_value=0.0)
-    trig = st.number_input("Triglycerides", min_value=0.0)
+    ldl   = st.number_input("LDL", min_value=0.0)
+    hdl   = st.number_input("HDL", min_value=0.0)
+    trig  = st.number_input("Triglycerides", min_value=0.0)
     waist = st.number_input("WaistCircumference", min_value=0.0)
-    hip = st.number_input("HipCircumference", min_value=0.0)
-    whr = st.number_input("WHR", min_value=0.0)
-    fam = st.selectbox("FamilyHistory", [0, 1])
-    diet = st.selectbox("DietType", [0, 1])
-    hyp = st.selectbox("Hypertension", [0, 1])
-    med = st.selectbox("MedicationUse", [0, 1])
+    hip   = st.number_input("HipCircumference", min_value=0.0)
+    whr   = st.number_input("WHR", min_value=0.0)
+    fam   = st.selectbox("FamilyHistory", [0, 1])
+    diet  = st.selectbox("DietType", [0, 1])
+    hyp   = st.selectbox("Hypertension", [0, 1])
+    med   = st.selectbox("MedicationUse", [0, 1])
 
     if st.button("Prediksi Glucose"):
-        input_data = pd.DataFrame([[age, preg, bmi, bp, hba1c, ldl, hdl, trig, waist, hip, whr, fam, diet, hyp, med]],
-            columns=['Age', 'Pregnancies', 'BMI', 'BloodPressure', 'HbA1c', 'LDL', 'HDL',
-                     'Triglycerides', 'WaistCircumference', 'HipCircumference', 'WHR',
+        input_data = pd.DataFrame(
+            [[age, preg, bmi, gluc, bp, hba1c, ldl, hdl, trig, waist, hip, whr, fam, diet, hyp, med]],
+            columns=['Age', 'Pregnancies', 'BMI', 'Glucose', 'BloodPressure',  # ✅ Glucose ikut
+                     'HbA1c', 'LDL', 'HDL', 'Triglycerides',
+                     'WaistCircumference', 'HipCircumference', 'WHR',
                      'FamilyHistory', 'DietType', 'Hypertension', 'MedicationUse'])
         scaled_data = LR_scaler.transform(input_data)
         pred = LR_model.predict(scaled_data)
